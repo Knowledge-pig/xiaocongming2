@@ -1,0 +1,920 @@
+setInterval(函数名，毫秒数）；无限的执行函数；
+例如：
+1.
+function show()
+    {
+    alert('a')'
+    }
+setInterval(show,1000);
+或者
+setInterval(function(){alert('a');},1000)
+          };
+setTimeout(函数名，毫秒数）只执行一次函数；
+
+2.setInterval是有返回值
+
+
+clearInterval默认是清除所有计时器，但也可以指定数值。
+
+   
+例如：
+     <script>
+         window.onload=function()
+         {
+           var oBtn1=document.getElementById("btn1");
+           var oBtn2=document.getElementById("btn2");
+           var timer=null;
+              oBtn1.onclick=function()
+                {
+                    setInterval(function()
+                        {
+                           alert('a');},1000)
+                 }
+                oBtn2.onclick=function()
+                  {
+                      clearInterval();关闭所有的；
+                      clearInterval(timer);
+                  }
+          }
+     </script>
+     <body>
+       <input type="button" value="开始" id="btn1">
+       <input type="button" value="关闭" id="btn2">
+     </body>
+3.DOM
+元素操作方式：
+一种oDiv.style.display="block";
+二种oDiv.style["display"]="block";
+三种：DOM
+
+兼容性：
+ie:6-8(10%)  9(有bug）；
+chrome；
+ff:99%;
+
+4.获取子节点的方法：
+操作：
+<script>
+     window.onload=function()
+    {
+       var oUl=document.getElementById("ull"); 
+       oUl.chidNodes[i].style.background='red'; 
+    
+    };
+<script>
+ 出现问题：会算空的节点（ie7会兼容）
+文本节点：fafafafafaf
+元素节点：<span></span>
+测试节点类型：nodeType
+nodeType==3：文本节点
+nodeType==1：元素节点
+所以：
+if(oUl.chidNodes[i].nodeType==1)
+{
+oUl.childNodes[i].style.background='red';
+}
+ 
+只处理元素节点
+oUl.children.length;
+注意：只算第一层，不会算嵌套。
+
+5.查找每个元素的父节点parentNode;
+功能：实现文本隐藏
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父节点</title>
+    <script>
+       window.onload=function()
+       {
+           var aA=document.getElementsByTagName('a');
+            for(var i=0;i<aA.length;i++)
+            {
+                aA[i].onclick=function()
+                {
+                    this.parentNode.style.display='none';
+                }
+            }
+       }
+    </script>
+</head>
+<body>
+     <ul id="ull">
+         <li>ddddd<a href="javascript:;">隐藏</a></li>
+         <li>sssss<a href="javascript:;">隐藏</a></li>
+         <li>bbbbb<a href="javascript:;">隐藏</a></li>
+         <li>eeeee<a href="javascript:;">隐藏</a></li>
+         <li>ggggg<a href="javascript:;">隐藏</a></li>
+
+     </ul>
+</body>
+</html>
+
+
+6.offsetParent
+根据父层节点进行定位；
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>offsetParent</title>
+    <style>
+        #div1{
+             width:200px;
+             height:200px;
+             background:#ccc;
+             margin:100px;
+             position:relative;
+
+        }
+        #div2{
+          width:100px;
+            height:100px;
+            background:red;
+            position:absolute;
+            left:50px;
+            top:50px;
+        }
+    </style>
+    <script>
+      window.onload=function()
+      {
+          var oDiv2=document.getElementById('div2');
+          alert(oDiv2.offsetParent);
+      }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+
+首尾子节点：
+有兼容问题
+firstChild.fristElementChild
+lastChild.lastElementChild
+兄弟节点：
+nextSibling,nextElementSibling
+perviousSibling previousElementSibling.
+
+实例：
+    window.onload=function()
+        {
+            var oUl=document.getElementById('ul1');
+
+            //IE6_IE8
+
+            //高级浏览器，ie7不兼容
+            if(oUl.firstElementChild)
+            {
+                oUl.firstElementChild.style.background='red';
+            }
+            else
+            {
+                oUl.firstChild.style.background='red';
+            }
+        }
+    </script>
+
+
+7.元素属性操作
+<script>
+        window.onload=function()
+        {
+          var oText=document.getElementById('txt1');
+            var oBtn=document.getElementById('btn1');
+            //oText.value='abcdef';
+            //oText['value']='abcdex';
+            oText.setAttribute('value','abcdexe');
+
+        }
+    </script>
+DOM方式操作元素的属性
+获取：getAttribute(名称）
+设置：setAttribute(名称，值）
+删除：removeAttribute(名称）
+
+/不懂/
+function getByClass(oParent,sClass)
+        {
+            var aResult=[];
+          var aEle=oParent.getElementsByTagName('*');
+            for(var i=0;i<aEle.length;i++)
+            {
+              if(aEle[i].className==sClass)
+              {
+                  aResult.push(aEle[i]);
+              }
+            }
+            return aResult;
+        }
+        window.onload=function()
+        {
+            var oUl=document.getElementById('ull');
+            var aBox=getByClass(oUl,'box');
+                for(var i=0;i<aBox.length;i++)
+                {
+                    aBox[i].style.background='red';
+                }
+        }
+    </script>
+
+
+
+8.创建Dom元素
+通过文本，创建li，并且li的内容是通过文本框传输过来的；
+  <script>
+         window.onload=function()
+         {
+             var oBtn=document.getElementById('btn1');
+             var oUl=document.getElementById('ull');
+             var oTxt=document.getElementById('txt1');
+               oBtn.onclick=function()
+               {
+                 var oLi=document.createElement('li');
+                   oLi.innerHTML=oTxt.value;
+                 oUl.appendChild(oLi);
+               }
+         }
+    </script>
+9.在元素之前插入：
+兼容性：ie不兼容
+<script>
+         window.onload=function()
+         {
+             var oBtn=document.getElementById('btn1');
+             var oUl=document.getElementById('ull');
+             var oTxt=document.getElementById('txt1');
+             oBtn.onclick=function()
+               {
+                 var oLi=document.createElement('li');
+                   var aLi=oUl.getElementsByTagName('li');
+                       oLi.innerHTML=oTxt.value;
+                        
+                       oUl.insertBefore(oLi,aLi[0]);
+
+
+               }
+         }
+    </script>
+
+兼容性：Ie兼容
+ <script>
+         window.onload=function()
+         {
+             var oBtn=document.getElementById('btn1');
+             var oUl=document.getElementById('ull');
+             var oTxt=document.getElementById('txt1');
+             oBtn.onclick=function()
+               {
+                 var oLi=document.createElement('li');
+                   var aLi=oUl.getElementsByTagName('li');
+                       oLi.innerHTML=oTxt.value;
+                   if(aLi.length>0){
+                       oUl.insertBefore(oLi,aLi[0]);                   }
+                      }
+                     else
+                     {
+                         oUl.appendChild(oLi);
+                     }
+         }
+    </script>
+
+10.删除子元素用DOM方式：
+<script>
+        window.onload=function()
+        {
+            var aA=document.getElementsByTagName('a');
+            var oUl=document.getElementById('ull');
+            for(var i=0;i<aA.length;i++)
+            {
+                aA[i].onclick=function()
+                {
+                    oUl.removeChild(this.parentNode);
+                };
+            }
+        }
+    </script>
+
+11.创建子元素
+ <script>
+        window.onload=function()
+        {
+         var oUl=document.getElementById('ull');
+            for(var i=0;i<10;i++)
+            {
+                  var  oLi=document.createElement('li');
+                  oUl.appendChild(oLi);
+            }
+        }
+    </script>
+
+12.文档碎片
+功能：能降低性能，ie6——ie7快速，其余的不管用；
+例如：
+  <script>
+        window.onload=function()
+        {
+         var oUl=document.getElementById('ull');
+            var oFrag=document.createDocumentFragment();
+            for(var i=0;i<10;i++)
+            {
+                  var  oLi=document.createElement('li');
+                  oFrag.appendChild(oLi);
+            }
+            oUl.appendChild(oFrag);
+        }
+    </script>
+
+13.DOM高级应用
+获取元素：
+ <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            alert(oTab.getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[1].innerHTML);
+
+        }
+    </script>
+   相当于：
+   <script>
+      {
+            var oTab=document.getElementById('tab1');
+            alert(oTab.tBodies[0].rows[1].cells[1].innerHTML);
+        }
+   </script>
+1.选取tbody：oTab.tBodies[0]
+相当于：oTab.getElementsByTagName('tbody')[0]；
+2.选取tr:rows[1];
+相当于:getElementsByTagName('tr')[1]
+3.选取单元格：celss[1];
+相当于：getElementsByTagName('td')[1]
+
+
+14.隔行变色：
+    <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                if(i%2)
+                {
+                    oTab.tBodies[0].rows[i].style.background='#ccc';
+                }
+                else
+                {
+                    oTab.tBodies[0].rows[i].style.background='';
+                }
+            }
+        }
+    </script>
+
+
+15.鼠标移入变色
+ var oTab=document.getElementById('tab1');
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                oTab.tBodies[0].rows[i].onmouseover=function()
+                {
+                    this.style.background='yellow';
+                }
+                oTab.tBodies[0].rows[i].onmouseout=function()
+                {
+                    this.style.background='';
+                }
+出现问题,移除的时候影响隔行变色，解决方法：
+ window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var oldColor='';
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                oTab.tBodies[0].rows[i].onmouseover=function()
+                {
+                    oldColor=this.style.background;
+                    this.style.background='yellow';
+                }
+                oTab.tBodies[0].rows[i].onmouseout=function()
+                {
+                    this.style.background=oldColor;
+                }
+
+14.给表哥添加行
+ <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var aBtn=document.getElementById('btn1');
+            var oName=document.getElementById('name');
+            var oAge=document.getElementById('age');
+            aBtn.onclick=function()
+            {
+                var oTr=document.createElement('tr');
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oTab.tBodies[0].rows.length+1;
+                oTr.appendChild(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oName.value;
+                oTr.appendChild(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oAge.value;
+                oTr.appendChild(oTd);
+
+                oTab.tBodies[0].appendChild(oTr);
+            }
+        }
+    </script>
+15.删除表格一行
+ var oTd=document.createElement('td');
+                oTd.innerHTML='<a href="javascript:;">删除</a>';
+                oTr.appendChild(oTd);
+                oTd.getElementsByTagName('a')[0].onclick=function(){
+                     oTab.tBodies[0].removeChild(this.parentNode.parentNode);
+注释：有问题,原因在追加记录的时候，id号不正确；
+解决方法：
+存一个id值即可完成：
+ <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var aBtn=document.getElementById('btn1');
+            var oName=document.getElementById('name');
+            var oAge=document.getElementById('age');
+            var id=oTab.tBodies[0].rows.length+1;
+            aBtn.onclick=function()
+            {
+                var oTr=document.createElement('tr');
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=id++;
+                oTr.appendChild(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oName.value;
+                oTr.appendChild(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oAge.value;
+                oTr.appendChild(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML='<a href="javascript:;">删除</a>';
+                oTr.appendChild(oTd);
+                oTd.getElementsByTagName('a')[0].onclick=function(){
+                     oTab.tBodies[0].removeChild(this.parentNode.parentNode);
+                };
+                oTab.tBodies[0].appendChild(oTr);
+            }
+        }
+    </script>
+
+
+16.搜索姓名：
+  <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var oTxt=document.getElementById('name');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                if(oTab.tBodies[0].rows[i].cells[1].innerHTML==oTxt.value)
+                {
+                    oTab.tBodies[0].rows[i].style.background='yellow';
+                }
+            }
+            }
+        }
+    </script>
+
+
+忽略大小写搜索：
+ <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var oTxt=document.getElementById('name');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                var sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML;
+                        var sTxt =oTxt.value;
+                if(sTab.toLowerCase()==sTxt.toLowerCase())/*关键代码*/
+                {
+                    oTab.tBodies[0].rows[i].style.background='yellow';
+                }
+            }
+            }
+        }
+    </script>
+
+18.模糊搜索
+ <script>
+      var str='abcdrfs';
+        alert(str.search('d'));  
+    </script>
+
+ var sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                    var sTxt =oTxt.value.toLowerCase();
+                    if(sTab.search(sTxt)!=-1)
+                    {
+                        oTab.tBodies[0].rows[i].style.background='yellow';
+                    }
+
+19.关键字搜索
+<script>
+   var str='abc 123 ert';
+   var arr=str.split('');
+   alert (arr.length);
+</script>
+
+   <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var oTxt=document.getElementById('name');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    var sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                    var sTxt =oTxt.value.toLowerCase();
+                    var arr=sTxt.split('');
+                    oTab.tBodies[0].rows[i].style.background = '';
+                    for(var j=0;j<arr.length;j++) {
+                        if (sTab.search(arr[j])!= -1) {
+                            oTab.tBodies[0].rows[i].style.background = 'yellow';
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+
+20.移动元素
+先删除后添加
+  <script>
+        window.onload=function()
+        {
+            var oUl1=document.getElementById('ul1');
+            var oUl2=document.getElementById('ul2');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                var oLi=oUl1.children[0];
+                oUl1.removeChild(oLi);
+                oUl2.appendChild(oLi);
+            }
+        }
+    </script>
+
+只在一个模块移动
+ <script>
+        window.onload=function()
+        {
+            var oUl1=document.getElementById('ul1');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                var oLi=oUl1.children[0];
+                oUl1.appendChild(oLi);
+            }
+        }
+    </script>
+</head>
+
+
+
+21.数组排序
+    <script>
+        window.onload=function()
+        {
+            var oUl1=document.getElementById('ul1');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                var aLi=oUl1.getElementsByTagName('li');
+                var arr=[];
+                for(var i=0;i<aLi.length;i++)
+                {
+                    arr[i]=aLi[i];
+                }
+                arr.sort(function(li1,li2){
+                    var n1=parseInt(li1.innerHTML);
+                    var n2=parseInt(li2.innerHTML);
+                      return n1-n2;
+                });
+                for(var i=0;i<arr.length;i++)
+                {
+                    oUl1.appendChild(arr[i]);
+                }
+
+            };
+        };
+    </script>
+
+
+
+22.从小到大li排序
+    <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                var arr=[];
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    arr[i]=oTab.tBodies[0].rows[i];
+                }
+                arr.sort(function(tr1,tr2){
+                  var n1=parseInt( tr1.cells[0].innerHTML);
+                    var n2=parseInt( tr2.cells[0].innerHTML);
+                     return n1-n2;
+                })
+                for(var i=0;i<arr.length;i++)
+                {
+                    oTab.tBodies[0].appendChild(arr[i]);
+                }
+            }
+        }
+    </script>
+
+
+23.表单验证
+<script>
+        function checkNickname(){
+		document.getElementById("divNickname").innerHTML="请输入昵称";
+		}
+		
+		function checkNickname1(){
+		if (document.f1.nickname.value=="")
+		{
+		  document.getElementById("divNickname").innerHTML="<font color=‘ff0000'><img src='13.png'>&nbsp;昵称不可以为空</font>";
+		 }
+		 else
+		 {
+		  document.getElementById("divNickname").innerHTML="<img src='12.png'>";
+		 }
+		 }
+ function checkPass1(){
+          document.getElementById("divPass1").innerHTML = "<font size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能包含空格&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字&nbsp;&nbsp;</font>";
+       }
+
+       function checkPass2(){
+          var flag = true;
+          var pass = document.f1.pass1.value;
+          var info = ""; 
+
+          if(pass.length>=6 && pass.length <= 16)
+                 {
+              info += "<font size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符</font><br/>";
+             
+           }
+		 else{
+               info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符</font><br/>";
+               flag = false;
+                  }  
+          var space = false; 
+          var digital = false;
+          for(var i=0;i<pass.length;i++)
+          { 
+             if(pass.charAt(i)==' ')
+             {
+                space = true;
+                break;
+             }
+          } 
+         
+          if(space==true)
+          {
+             info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;不能包含空格</font><br/>";
+             flag = false;
+          }else{
+             info += "<font size='-2'>&nbsp;&nbsp;&nbsp;不能包含空格</font><br/>";
+          } 
+
+          if(pass.length < 9 )
+          {
+             for(var i=0;i<pass.length;i++)
+             {
+                var ch = pass.charAt(i);
+              
+                if(ch>='0' && ch<= '9')
+                {
+                   
+                }else{
+                   digital = true;
+                   break;
+                }
+             }
+          }else{
+              digital = true;
+          }
+          
+          
+          if(digital==true)
+          {
+             info += "<font size='-2'>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字</font>";
+          }else{
+             info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字</font>";
+             flag = false;
+          }
+		  		  if(pass.length==0){
+		         info ="";
+		         info += "<font size='-2' color='000'>&nbsp;&nbsp;&nbsp;长度为6-16位字符&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能包含空格&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字&nbsp;&nbsp;</font>"
+				 }
+          document.getElementById("divPass1").innerHTML = info;
+          return flag;
+
+       }
+
+		  function checkPass3(){
+		    if(document.f1.pass2.value!=""){
+              if (document.f1.pass2.value==document.f1.pass1.value){
+			        document.getElementById("divPass2").innerHTML="<img src='12.png'>&nbsp;密码正确";   
+                      
+                  }
+              else{
+                      document.getElementById("divPass2").innerHTML="<font color='red'><img src='13.png'>&nbsp;密码与上面不同</font>"; 
+				}
+           }
+		   else{
+		          document.getElementById("divPass2").innerHTML="";
+		   }
+		   }
+</script>
+aLi.sort();
+
+
+
+
+
+24.让div动起来
+ <script>
+             function startMove()
+             {
+                    var oDiv=document.getElementById('div1');
+                    setInterval(function(){
+                        oDiv.style.left=oDiv.offsetLeft+10+'px';
+                    },30);
+             }
+    </script>
+
+25.运行到300px时候停止
+    <script>
+        var timer=null;
+        function startMove()
+        {
+            var oDiv=document.getElementById('div1');
+           timer=setInterval(function(){
+                if(oDiv.offsetLeft==300)
+                {
+                  clearInterval(timer);
+                }
+                oDiv.style.left=oDiv.offsetLeft+10+'px';/*数字可以控制速度
+            },30);
+        }
+    </script>
+
+26.保证一个定时器的使用
+用法：提前关闭
+clearInterval(timer);
+
+
+27.侧边栏（鼠标移入）
+    <script>
+       window.onload=function()
+       {
+           var oDiv = document.getElementById('div1');
+           oDiv.onmouseover = function ()
+           {
+               startMove(10,0);
+           };
+           oDiv.onmouseout = function ()
+           {
+               startMove(-10,-150);
+           };
+       }
+
+           var timer = null;
+           function startMove(speed,iTarget) {
+               var oDiv = document.getElementById('div1');
+               clearInterval(timer);
+               timer=setInterval(function () {
+                   if (oDiv.offsetLeft == iTarget) {
+                       clearInterval(timer);
+                   }
+                   else {
+                       oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                   }
+               }, 30);
+           }
+
+
+
+参数减少：
+<script>
+        window.onload=function()
+        {
+            var oDiv = document.getElementById('div1');
+            oDiv.onmouseover = function ()
+            {
+                startMove(0);
+            };
+            oDiv.onmouseout = function ()
+            {
+                startMove(-150);
+            };
+        }
+
+        var timer = null;
+        function startMove(iTarget) {
+            var oDiv = document.getElementById('div1');
+            clearInterval(timer);
+            timer=setInterval(function () {
+                var speed=0;
+                if(oDiv.offsetLeft>iTarget)
+                {
+                    speed=-10;
+                }
+                else
+                {
+                    speed=10;
+                }
+                if (oDiv.offsetLeft == iTarget) {
+                    clearInterval(timer);
+                }
+                else {
+                    oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                }
+            }, 30);
+        }
+</script>
+
+28.数学函数
+Math.ceil(-9.8)):向上取整；返回比原数大的最大整数。
+Math.floor(-0.9)):向下取整；
+ if(speed>0){
+               speed=Math(ceil(speed));
+            }
+            else
+            {
+               speed=Math(floor(speed));
+            }
+简单化写法：
+speed=speed>0?Math.ceil(speed):Math.floor(speed);
+
+缓冲运动实例：
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>缓冲运动</title>
+    <style>
+        #div1{
+            width:100px;
+            height:100px;
+            background:red;
+            position:relative;
+            left:0px;
+            top:100px;
+        }
+    </style>
+    <script>
+        function startMove()
+        {
+            var oDiv=document.getElementById('div1');
+            setInterval(function(){
+               var speed=(300-oDiv.offsetLeft)/10;
+                oDiv.style.left=oDiv.offsetLeft+speed+'px';
+            },30);
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+        }
+    </script>
+</head>
+<body>
+   <input type="button" value="开始运动" id="btn1" onclick="startMove()">
+   <div id="div1"></div>
+</body>
+</html>
+
+
+
+
+
+ 

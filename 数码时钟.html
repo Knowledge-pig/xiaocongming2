@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <script>
+        function toDou(n)
+        {
+            if(n<10)
+            {
+              return '0'+n;
+            }
+              else
+            {
+                return ''+n;
+            }
+        }
+        window.onload=function()
+        {
+            var aImg=document.getElementsByTagName('img');
+
+                     function tick(){
+                         var oDate=new Date();
+                         var str=toDou(oDate.getHours())+toDou(oDate.getMinutes())+toDou(oDate.getSeconds());
+
+                            for(var i=0;i<aImg.length;i++)
+                             {
+                                aImg[i].src= 'image/'+str.charAt(i)+'.png'
+                                }
+                     }
+                      setInterval(tick,1000);
+                         tick();
+        };
+    </script>
+    <style>
+        body{
+            background-color: #121fb1;
+            color: #ffffff;
+            font-size:120px;
+            line-height:120px;
+
+
+        }
+    </style>
+</head>
+<body>
+   <p>当前系统时间为：</p>
+     <img src="image/0.png">
+     <img src="image/0.png">
+     :
+     <img src="image/0.png">
+     <img src="image/0.png">
+     :
+     <img src="image/0.png">
+     <img src="image/0.png">
+
+</body>
+</html>

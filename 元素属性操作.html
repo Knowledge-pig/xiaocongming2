@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元素属性操作</title>
+    <script>
+        window.onload=function()
+        {
+          var oText=document.getElementById('txt1');
+            var oBtn=document.getElementById('btn1');
+            //oText.value='abcdef';
+            //oText['value']='abcdex';
+            oText.setAttribute('value','abcdexe');
+
+        }
+    </script>
+</head>
+<body>
+   <input id="txt1" type="text">
+   <input id="btn1" type="button" value="开始">
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function()
+        {
+            var aA=document.getElementsByTagName('a');
+            var oUl=document.getElementById('ull');
+            for(var i=0;i<aA.length;i++)
+            {
+                aA[i].onclick=function()
+                {
+                    oUl.removeChild(this.parentNode);
+                };
+            }
+        }
+    </script>
+</head>
+<body>
+    <ul id="ull">
+        <li>asdsdas<a href="javascript:;">删除</a></li>
+        <li>adadad<a href="javascript:;">删除</a></li>
+        <li>asaaaasdas<a href="javascript:;">删除</a></li>
+        <li>adadad<a href="javascript:;">删除</a></li>
+        <li>adadad<a href="javascript:;">删除</a></li>
+        <li>adadad<a href="javascript:;">删除</a></li>
+        <li>adadad<a href="javascript:;">删除</a></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+
+<title>注册界面</title>
+
+<style>
+ body{
+     background:url(QQ注册1.png) no-repeat;
+	 width:1134px;
+	 height:1132px;
+	 margin:0px;
+	 padding:0px;
+	 }
+ .totality{
+	  width:100%;
+	  height:100%;
+	  margin:0px;
+	  padding:0px;}
+  .top{margin:auto;float:left;width:1134px;height:333px;}
+  .left{margin:auto;float:left;width:432px;height:799px;}
+  .center{margin:auto;float:left;width:690px;height:799px;} 
+  .input{
+        text-align:center;
+        border:2px solid #cde3f5;
+        padding:10px 40px; 
+        background:#ffffff;
+        width:150px;
+        border-radius:5px;
+        -moz-border-radius:20px; /* old Firefox */
+      }
+
+
+      
+</style>
+<script>
+        function checkNickname(){
+		document.getElementById("divNickname").innerHTML="请输入昵称";
+		}
+		
+		function checkNickname1(){
+		if (document.f1.nickname.value=="")
+		{
+		  document.getElementById("divNickname").innerHTML="<font color=‘ff0000'><img src='13.png'>&nbsp;昵称不可以为空</font>";
+		 }
+		 else
+		 {
+		  document.getElementById("divNickname").innerHTML="<img src='12.png'>";
+		 }
+		 }
+ function checkPass1(){
+          document.getElementById("divPass1").innerHTML = "<font size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能包含空格&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字&nbsp;&nbsp;</font>";
+       }
+
+       function checkPass2(){
+          var flag = true;
+          var pass = document.f1.pass1.value;
+          var info = ""; 
+
+          if(pass.length>=6 && pass.length <= 16)
+                 {
+              info += "<font size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符</font><br/>";
+             
+           }
+		 else{
+               info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;长度为6-16位字符</font><br/>";
+               flag = false;
+                  }  
+          var space = false; 
+          var digital = false;
+          for(var i=0;i<pass.length;i++)
+          { 
+             if(pass.charAt(i)==' ')
+             {
+                space = true;
+                break;
+             }
+          } 
+         
+          if(space==true)
+          {
+             info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;不能包含空格</font><br/>";
+             flag = false;
+          }else{
+             info += "<font size='-2'>&nbsp;&nbsp;&nbsp;不能包含空格</font><br/>";
+          } 
+
+          if(pass.length < 9 )
+          {
+             for(var i=0;i<pass.length;i++)
+             {
+                var ch = pass.charAt(i);
+              
+                if(ch>='0' && ch<= '9')
+                {
+                   
+                }else{
+                   digital = true;
+                   break;
+                }
+             }
+          }else{
+              digital = true;
+          }
+          
+          
+          if(digital==true)
+          {
+             info += "<font size='-2'>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字</font>";
+          }else{
+             info += "<font color='red' size='-2'>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字</font>";
+             flag = false;
+          }
+		  		  if(pass.length==0){
+		         info ="";
+		         info += "<font size='-2' color='000'>&nbsp;&nbsp;&nbsp;长度为6-16位字符&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能包含空格&nbsp;<br/>&nbsp;&nbsp;&nbsp;不能是9位以下纯数字&nbsp;&nbsp;</font>"
+				 }
+          document.getElementById("divPass1").innerHTML = info;
+          return flag;
+
+       }
+
+		  function checkPass3(){
+		    if(document.f1.pass2.value!=""){
+              if (document.f1.pass2.value==document.f1.pass1.value){
+			        document.getElementById("divPass2").innerHTML="<img src='12.png'>&nbsp;密码正确";   
+                      
+                  }
+              else{
+                      document.getElementById("divPass2").innerHTML="<font color='red'><img src='13.png'>&nbsp;密码与上面不同</font>"; 
+				}
+           }
+		   else{
+		          document.getElementById("divPass2").innerHTML="";
+		   }
+		   }
+</script>
+
+</head>
+
+<body>
+<div class="totality">
+     <span class="pic">
+     <input name="text" type="text" /width="80px" height="54px" />
+     </span>
+     <div class="top"></div>
+	 <div class="left"></div>
+     <div class="center">
+	      <h3><font color="#837b7b">注册账号</font></h3>
+             <hr color="#edeeee">
+                 <form name="f1">
+				     <table>
+				       <tr>
+					       <td width="64" align="right">昵称&nbsp;</td>
+						   <td width="155">
+				         <input type="text" onClick="checkNickname();" class="input" onBlur="checkNickname1();" name="nickname" />						   </td>
+						   <td width="179"> <div name="divNickname" id="divNickname">&nbsp;昵称不可以为空</div></td>
+					   </tr>
+					   <tr>
+                          <td align="right">密码</td>
+                          <td><input type="password" name="pass1" class="input" onClick="checkPass1()" onBlur="checkPass2()"></td>
+                          <td><div name="divPass1" id="divPass1"></div></td>
+                      </tr>
+                      <tr>
+                        <td align="right">确认密码</td>
+                        <td><input type="password" name="pass2" class="input" onBlur="checkPass3()"></td>
+                        <td><div name="divPass2" id="divPass2"></div></td>
+                     </tr>
+                         
+				     </table>
+                        <center><input type="button" value="登陆"></center>
+				 </form>
+     </div>
+
+</body>
+</html>

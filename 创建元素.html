@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul{list-style-type: none;}
+    </style>
+    <script>
+         window.onload=function()
+         {
+             var oBtn=document.getElementById('btn1');
+             var oUl=document.getElementById('ull');
+             var oTxt=document.getElementById('txt1');
+             oBtn.onclick=function()
+               {
+                 var oLi=document.createElement('li');
+                   var aLi=oUl.getElementsByTagName('li');
+                       oLi.innerHTML=oTxt.value;
+                   if(aLi.length>0){
+                       oUl.insertBefore(oLi,aLi[0]);                   }
+                      }
+                     else
+                     {
+                         oUl.appendChild(oLi);
+                     }
+         }
+    </script>
+</head>
+<body>
+
+   <input type="button" value="留言板" id="btn1">
+   <input type="text" id="txt1">
+   <ul id="ull">
+   </ul>
+</body>
+</html>

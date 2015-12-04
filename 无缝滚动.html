@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+        #div1 ul li{
+            float:left;
+            width:200px;
+            height:200px;
+            list-style:none;
+        }
+        #div1 ul{
+            margin-top:0px;
+            float:left;
+            position:absolute;
+        }
+        #div1{
+            float:left;
+            width:800px;
+            height:200px;
+            position:relative;
+            background:#90b0b1;
+            overflow:hidden;
+        }
+    </style>
+    <script>
+       window.onload=function()
+       {
+           var oDiv=document.getElementById('div1');
+           var oUl=oDiv.getElementsByTagName('ul')[0];
+           var aLi=oUl.getElementsByTagName('li');
+           oUl.innerHTML=oUl.innerHTML+oUl.innerHTML;
+           oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+           setInterval(function(){
+               if(oUl.offsetLeft<-oUl.offsetWidth/2)
+               {
+                   oUl.style.left='0';
+               }
+               if(oUl.offsetLeft>0){
+                   oUl.style.left=-oUl.offsetWidth/2+'px';
+               }
+               oUl.style.left=oUl.offsetLeft+2+'px';
+           },3);
+           oDiv.onmouseover=function()
+           {
+               clearInterval(timer);
+           }
+
+       }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <ul>
+        <li><img src="image/1.jpg"></li>
+        <li><img src="image/2.jpg"></li>
+        <li><img src="image/3.jpg"></li>
+        <li><img src="image/4.jpg"></li>
+    </ul>
+</div>
+</body>
+</html>

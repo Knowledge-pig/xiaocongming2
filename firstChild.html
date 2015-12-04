@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function()
+        {
+            var oUl=document.getElementById('ul1');
+
+            //IE6_IE8
+
+            //高级浏览器，ie7不兼容
+            if(oUl.firstElementChild)
+            {
+                oUl.firstElementChild.style.background='red';
+            }
+            else
+            {
+                oUl.firstChild.style.background='red';
+            }
+        }
+    </script>
+</head>
+<body>
+     <ul id="ull">
+         <li>1111</li>
+         <li>1111</li>
+         <li>1111</li>
+         <li>1111</li>
+     </ul>
+</body>
+</html>
